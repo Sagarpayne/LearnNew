@@ -3,18 +3,22 @@ package com.sagarpayne.web.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.sagarpayne.backend.service.EmailService;
 import com.sagarpayne.web.frontend.FeedbackPojo;
 
 
 
 
 @Controller
+@ComponentScan({"com.sagarpayne.backend.service"})
 public class ContactController {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(ContactController.class);
@@ -22,6 +26,9 @@ public class ContactController {
 	public static final String FEEDBACK_MODEL_KEY="feedback";
 	
 	private static final String CONTACT_US_VIEW_NAME="contact/contact";
+	
+	@Autowired
+	private EmailService emailService;
 	
 	
 	/**
@@ -48,6 +55,7 @@ public class ContactController {
 	{
 		
 		LOG.debug("FeedbackPojo : {} ",feedback);
+		emailService.sendFeedbackEmail(feedback);
 		return "/index";
 		
 	}
