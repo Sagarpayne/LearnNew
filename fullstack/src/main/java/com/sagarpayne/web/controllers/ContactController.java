@@ -18,7 +18,7 @@ import com.sagarpayne.web.frontend.FeedbackPojo;
 
 
 @Controller
-@ComponentScan({"com.sagarpayne.backend.service"})
+
 public class ContactController {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(ContactController.class);
