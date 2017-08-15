@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.sagarpayne.enums.RolesEnum;
+
 @Entity
 public class Role implements Serializable {
 
@@ -13,6 +15,12 @@ public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public Role(){}
+	
+	public Role(RolesEnum rolesEnum)
+	{
+		this.id=rolesEnum.getId();
+		this.name=rolesEnum.getRoleName();
+	}
 	
 	@Id
 	private int id;
