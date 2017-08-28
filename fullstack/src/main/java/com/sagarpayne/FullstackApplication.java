@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages ="com.sagarpayne.backend.persistence.repositories")
+
 public class FullstackApplication {
 
 	public static void main(String[] args) {

@@ -15,10 +15,13 @@ import org.junit.Assert;
 
 import com.sagarpayne.FullstackApplication;
 import com.sagarpayne.backend.persistence.domain.backend.Plan;
+import com.sagarpayne.backend.persistence.domain.backend.Role;
 import com.sagarpayne.backend.persistence.domain.backend.User;
 import com.sagarpayne.backend.persistence.repositories.PlanRepository;
 import com.sagarpayne.backend.persistence.repositories.RoleRepository;
 import com.sagarpayne.backend.persistence.repositories.UserRepository;
+import com.sagarpayne.enums.PlansEnum;
+import com.sagarpayne.enums.RolesEnum;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
@@ -49,19 +52,35 @@ public class RepositoriesIntegrationTest {
 	@Test
 	public void testCreateNewPlan() throws Exception
 	{
-		Plan basicPlan =createBasicPlan();
+		Plan basicPlan =createBasicPlan(PlansEnum.BASIC);
 		planRepository.save(basicPlan);
 		Plan receivedPlan = planRepository.findOne(BASIC_PLAN_ID);
 		Assert.assertNotNull(receivedPlan);
 		
 	}
 	
-	private Plan createBasicPlan()
+	@Test
+	public void testCreateNewRole() throws Exception
 	{
-		Plan plan= new Plan();
-		plan.setId(BASIC_PLAN_ID);
-		plan.setName("Basic");
+		Role userRole =createRole(RolesEnum.BASIC);
+		roleRepository.save(userRole);
+		
+		Role retrivedRole = roleRepository.findOne(RolesEnum.BASIC.getId());
+		Assert.assertNotNull(retrivedRole);
+				
+	}
+	
+	private Plan createBasicPlan(PlansEnum ep)
+	{
+		Plan plan= new Plan(ep);
+		
 		return plan;
+		
+	}
+	
+	private Role createRole(RolesEnum re)
+	{
+		return new Role(re);
 		
 	}
 
@@ -69,7 +88,7 @@ public class RepositoriesIntegrationTest {
 	{
 		User user = new User();
 		
-		
+		return user;
 	}
 	
 }
