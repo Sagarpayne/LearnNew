@@ -70,6 +70,9 @@ public class RepositoriesIntegrationTest {
 		User user = new User();
 		
 		
+		
+		return user;
+		
 	}
 	
 }
