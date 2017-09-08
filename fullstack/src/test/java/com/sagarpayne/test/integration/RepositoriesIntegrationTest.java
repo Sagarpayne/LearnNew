@@ -87,15 +87,11 @@ public class RepositoriesIntegrationTest {
 	private User CreateBasicUser() 
 	{
 		User user = new User();
-		
-<<<<<<< HEAD
+
 		
 		
 		return user;
-		
-=======
-		return user;
->>>>>>> c42d8796b4834b9099058aaf50115b657898808d
+
 	}
 	
 }

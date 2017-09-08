@@ -1,6 +1,7 @@
 package com.sagarpayne.backend.persistence.domain.backend;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,9 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,30 +37,28 @@ public class User implements Serializable {
 
 	@Column(name = "last_name")
 	private String lastName;
-	
-	@Column (name = "phone_number")
+
+	@Column(name = "phone_number")
 	private String phoneNumber;
-	
-	@Length(max =500)
+
+	@Length(max = 500)
 	private String description;
-	
+
 	private String country;
-	
+
 	@Column(name = "profile_image_url")
 	private String profileImageUrl;
-	
+
 	@Column(name = "stripe_customer_id")
 	private String stripeCustomerId;
-	
-	
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "plan_id")
 	private Plan plan;
 
-	@OneToMany(mappedBy= "user" , cascade = CascadeType.ALL,fetch= FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<UserRole> userRoles = new HashSet<>();
-	
+
 	public long getId() {
 		return id;
 	}
@@ -153,7 +154,7 @@ public class User implements Serializable {
 	public void setPlan(Plan plan) {
 		this.plan = plan;
 	}
-	
+
 	public Set<UserRole> getUserRoles() {
 		return userRoles;
 	}
@@ -161,5 +162,38 @@ public class User implements Serializable {
 	public void setUserRoles(Set<UserRole> userRoles) {
 		this.userRoles = userRoles;
 	}
-	
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+
+		Set<GrantedAuthority> authorities = new HashSet<>();
+		userRoles.forEach(ur -> authorities.add(new Authority(ur.getRole().getName())));
+
+		return authorities;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 }

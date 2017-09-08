@@ -1,5 +1,7 @@
 package com.sagarpayne.utils;
 
+import org.junit.Test;
+
 import com.sagarpayne.backend.persistence.domain.backend.User;
 
 public class UserUtils {
@@ -8,7 +10,8 @@ public class UserUtils {
 	private UserUtils() {
         throw new AssertionError("Non instantiable");
     }
-
+	
+	
     /**
      * Creates a user with basic attributes set.
      * @param username The username.
