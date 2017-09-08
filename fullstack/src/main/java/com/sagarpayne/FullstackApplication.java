@@ -36,7 +36,10 @@ public class FullstackApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception
 	{
-	User user = UserUtils.createBasicUser("basic", "mo@gmail.com");
+	String username = "basic";
+	String email ="mo@gmail.com";
+		
+	User user = UserUtils.createBasicUser(username,email );
 		
 	Set<UserRole> userRoles = new HashSet<>();
 	userRoles.add(new UserRole(user, new Role(RolesEnum.PRO)));
