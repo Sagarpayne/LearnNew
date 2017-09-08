@@ -5,9 +5,18 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import com.sagarpayne.enums.PlansEnum;
+import com.sagarpayne.enums.RolesEnum;
+
 @Entity
 public class Plan implements Serializable{
 
+	public Plan(PlansEnum rolesEnum)
+	{
+		this.id=rolesEnum.getId();
+		this.name=rolesEnum.getPlanName();
+	}
+	
 	
 	public int getId() {
 		return id;
